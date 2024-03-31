@@ -31,7 +31,7 @@ public class GameController {
     }
     public Player checkWinner(Game game, Move lastPlayedMove)
     {
-        return game.getWinningStrategy().checkWinner(game.getCurrentBoard(),lastPlayedMove);
+        return game.getWinningStrategy().checkWinner(game.getCurrentBoard(),lastPlayedMove, game);
     }
     public Board undoMove(Game game, Move lasePlayedMove)
     {

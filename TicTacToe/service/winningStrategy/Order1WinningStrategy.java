@@ -1,9 +1,6 @@
 package projects.TicTacToe.service.winningStrategy;
 
-import projects.TicTacToe.model.Board;
-import projects.TicTacToe.model.Cell;
-import projects.TicTacToe.model.Move;
-import projects.TicTacToe.model.Player;
+import projects.TicTacToe.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +8,7 @@ import java.util.List;
 
 public class Order1WinningStrategy implements WinningStrategy{
     private int dimension;
+    private int cellFillCount;
     private List<HashMap<Character, Integer>> rowHashMapList; // index in the list will correspond to the row number for hashmap identification
     private List<HashMap<Character, Integer>> colHashMapList; // index in the list will correspond to the col number for hashmap identification
     private HashMap<Character, Integer> leftDiagonal;
@@ -20,6 +18,7 @@ public class Order1WinningStrategy implements WinningStrategy{
 
     public Order1WinningStrategy(int dimension) {
         this.dimension = dimension;
+        cellFillCount=0;
         rowHashMapList = new ArrayList<>();
         colHashMapList = new ArrayList<>();
         rightDiagonal = new HashMap<>();
@@ -32,11 +31,12 @@ public class Order1WinningStrategy implements WinningStrategy{
     }
 
     @Override
-    public Player checkWinner(Board board, Move lastMove) {
+    public Player checkWinner(Board board, Move lastMove, Game game) {
         Player player = lastMove.getPlayer();
         char symbol = player.getSymbol();
         int row = lastMove.getCell().getRow();
         int col = lastMove.getCell().getCol();
+        cellFillCount++;
 
         boolean winnerResult = (checkCorner(row, col) && winnerCheckForCorners(board.getMatrix(), symbol))
                 || checkAndUpdateForRowHashMap(row, symbol)
@@ -44,10 +44,18 @@ public class Order1WinningStrategy implements WinningStrategy{
                 || ( checkLeftDiagonal(row, col) && checkAndUpdateLeftDiagonalHashmap(symbol))
                 || ( checkRightDiagonal(row, col) && checkAndUpdateRightDiagonalHashmap(symbol));
 
-        if(winnerResult)
+        if (cellFillCount == dimension*dimension)
+        {
+            game.setGameStatus(GameStatus.DRAW);
+        }
+
+        if(winnerResult) {
             return player;
-        else
+        }
+        else{
             return null;
+        }
+
     }
 
     private boolean checkLeftDiagonal(int row, int col){

@@ -33,7 +33,7 @@ public class TicTacToe {
             Player newPlayer = new Player(id++,name,symbol, PlayerType.HUMAN);
             players.add(newPlayer);
         }
-        Collections.shuffle(players);
+        //Collections.shuffle(players);
 
         Game game = gameController.createGame(dimension,players, WinningStrategyName.OREDERONEWINNINGSTRATEGY);
         int playerIndex = -1;
@@ -50,6 +50,10 @@ public class TicTacToe {
                 System.out.println("CONGRATS : WINNER IS "+winner.getName());
                 break;
             }
+        }
+        if(game.getGameStatus().equals(GameStatus.DRAW))
+        {
+            System.out.println("Game is Draw");
         }
         System.out.println("Final Board Status");
         gameController.displayBoard(game);
