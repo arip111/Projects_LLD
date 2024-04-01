@@ -1,6 +1,7 @@
 package projects.parkingLot.models;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Ticket extends BaseModel{
 
@@ -49,5 +50,16 @@ public class Ticket extends BaseModel{
 
     public void setEntryGate(Gate entryGate) {
         this.entryGate = entryGate;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "Ticket_Id = "+ getId() +
+                ", entryTime = " + DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(entryTime) +
+                ", vehicle_Number = " + vehicle.getVehicleNumber() +
+                ", parkingSpot = " + parkingSpot.getNumber() +
+                ", entryGate = " + entryGate.getGateNumber() +
+                '}';
     }
 }

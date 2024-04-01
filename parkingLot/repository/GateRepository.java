@@ -14,7 +14,7 @@ public class GateRepository {
         this.gateMap = new HashMap<>();
     }
 
-    public Gate getGate(Gate gateId) {
+    public Gate getGate(int gateId) {
         Gate gate = gateMap.get(gateId);
         if(gate == null)
         {

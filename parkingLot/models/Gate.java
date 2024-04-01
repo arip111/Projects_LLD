@@ -51,4 +51,14 @@ public class Gate extends BaseModel{
     public void setOperatorName(String operatorName) {
         this.operatorName = operatorName;
     }
+
+    @Override
+    public String toString() {
+        return "Gate{" +
+                "gateType=" + gateType +
+                ", gateNumber=" + gateNumber +
+                ", gateStatus=" + gateStatus +
+                ", operatorName='" + operatorName + '\'' +
+                '}';
+    }
 }
